@@ -1,19 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getUsers } from '../../entities/user/api/userService';
 import { getTodos } from '../../entities/todo/api/todoService';
-import type { UserListT } from '../../entities/user/types/types';
-import type { TodoListT } from '../../entities/todo/types/types';
+import type { UserListT } from '../../entities/user/types/userTypes';
+import type { TodoListT } from '../../entities/todo/types/todoTypes';
+import type { ProcessDataReturnT } from '../types/userAndTodosTypes';
 
-export function useData() {
-  const [users, setUsers] = useState<UserListT | null>(null);
-  const [todos, setTodos] = useState<TodoListT | null>(null);
+export const useData = (): ProcessDataReturnT => {
+  const [users, setUsers] = useState<UserListT>([]);
+  const [todos, setTodos] = useState<TodoListT>([]);
 
   useEffect(() => {
-    (async () => {
-      setUsers(await getUsers());
-      setTodos(await getTodos());
-    })().catch((error: unknown) => console.log(error));
+    const getData = async (): Promise<void> => {
+      try {
+        const [usersData, todosData] = await Promise.all([getUsers(), getTodos()]);
+        setUsers(usersData);
+        setTodos(todosData);
+      } catch (error) {
+        console.log('Ошибка получения данных', error);
+      }
+    };
+    void getData();
   }, []);
 
-  return { users, todos };
-}
+  const userTodos: ProcessDataReturnT = useMemo(() => {
+    if (!users.length || !todos.length) return [];
+
+    const userIdTodosCompleted: Record<number, number> = {};
+
+    todos.forEach((todo) => {
+      if (todo.completed) {
+        userIdTodosCompleted[todo.userId] = (userIdTodosCompleted[todo.userId] || 0) + 1;
+      }
+    });
+
+    return users.map((user) => ({
+      ...user,
+      todos: userIdTodosCompleted[user.id] || 0,
+    }));
+  }, [users, todos]);
+
+  return userTodos;
+};

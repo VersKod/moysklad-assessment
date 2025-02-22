@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { userSchema } from '../schema/userSchema';
 import { ZodError } from 'zod';
-import type { UserListT } from '../types/types';
+import type { UserListT } from '../types/userTypes';
 
 export const getUsers = async (): Promise<UserListT> => {
   try {

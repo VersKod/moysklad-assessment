@@ -1,13 +1,12 @@
 import React from 'react';
+import { useData } from './hooks/useData';
 
 function App(): React.JSX.Element {
- 
+  const userTodos = useData();
 
-  return (
-    <div>
-      fdfdf
-    </div>
-  );
+  console.log(userTodos);
+
+  return <div>fdfdf</div>;
 }
 
 export default App;
