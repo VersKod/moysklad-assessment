@@ -3,9 +3,9 @@ import { getUsers } from '../../entities/user/api/userService';
 import { getTodos } from '../../entities/todo/api/todoService';
 import type { UserListT } from '../../entities/user/types/userTypes';
 import type { TodoListT } from '../../entities/todo/types/todoTypes';
-import type { ProcessDataReturnT } from '../types/userAndTodosTypes';
+import type { useDataReturnT } from '../types/userAndTodosTypes';
 
-export const useData = (): ProcessDataReturnT => {
+export const useData = (): useDataReturnT[] => {
   const [users, setUsers] = useState<UserListT>([]);
   const [todos, setTodos] = useState<TodoListT>([]);
 
@@ -22,7 +22,7 @@ export const useData = (): ProcessDataReturnT => {
     void getData();
   }, []);
 
-  const userTodos: ProcessDataReturnT = useMemo(() => {
+  const userTodos: useDataReturnT[] = useMemo(() => {
     if (!users.length || !todos.length) return [];
 
     const userIdTodosCompleted: Record<number, number> = {};
