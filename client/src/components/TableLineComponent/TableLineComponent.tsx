@@ -10,9 +10,7 @@ function TableLineComponent({ userTodo }: Prop): React.JSX.Element {
     <>
       <div className="cell number">{userTodo.id}</div>
       <div className="cell profile_wrapper">
-        <svg
-          width="40"
-          height="40"
+        <svg className='icon'
           viewBox="0 0 40 40"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

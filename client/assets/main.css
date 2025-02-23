@@ -19,7 +19,7 @@
 }
 
 .paragraph{
-  margin: 8px 0 0 0;
+  margin: 0.5em 0 0 0;
   font-size: 1em;
   font-weight: 400; 
   color: var(--secondary-font-color)
@@ -28,7 +28,7 @@
 .table{
   margin-top: 3em;
   display: grid;
-  grid-template-columns: 47px minmax(400px, auto) 168px;
+  grid-template-columns: 47px minmax(180px, auto) 168px;
   grid-template-rows: 2em;
   grid-auto-rows: 5em;
   border: 1px solid var(--main-border-color);
@@ -39,6 +39,7 @@
 .header1, .header2, .header3{
   display: flex;
   font-size: 0.75em;
+  font-weight: 600;
   color: var(--secondary-font-color);
   align-items: center;
   background-color: rgba(255, 255, 255, 0.04);
@@ -58,6 +59,7 @@ border-bottom: 1px solid var(--main-border-color);
 }
 
 .cell{
+  font-weight: 500;
   align-items: center;
   display: flex;
 }
@@ -69,6 +71,7 @@ border-bottom: 1px solid var(--main-border-color);
 .email{
   font-size: 0.75em;
   color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
 }
 
 .todoCount {
@@ -81,9 +84,61 @@ border-bottom: 1px solid var(--main-border-color);
   gap: 16px;
 }
 
+.icon{
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .name_wrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 4px;
+}
+
+@media screen and (max-width: 700px){
+  .main{
+    padding: 56px 40px 145px 40px;
+  }
+
+  .header{
+    font-size: 2em;
+  }
+
+  .paragraph, .cell{
+    font-size: 0.75em;
+  }
+
+  .table{
+    margin-top: 1.5em;
+    grid-template-columns: 37px minmax(170px, auto) 86px;
+  }
+
+  .header1, .header2, .header3{
+    font-size: 0.5em;
+  }
+
+  .header3{
+    padding: 0;
+    justify-content: center;
+  }
+
+  .profile_wrapper{
+    gap: 10px;
+  }
+
+  .icon{
+    width: 24px;
+    height: 24px;
+  }
+
+  .email{
+    font-size: 0.625em;
+  }
+
+  .todoCount {
+    padding: 0;
+    justify-content: center;
+  }
 }
