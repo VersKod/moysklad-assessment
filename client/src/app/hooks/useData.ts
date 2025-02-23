@@ -25,17 +25,16 @@ export const useData = (): useDataReturnT[] => {
   const userTodos: useDataReturnT[] = useMemo(() => {
     if (!users.length || !todos.length) return [];
 
-    const userIdTodosCompleted: Record<number, number> = {};
+    const userIdTodos: Record<number, number> = {};
 
     todos.forEach((todo) => {
-      if (todo.completed) {
-        userIdTodosCompleted[todo.userId] = (userIdTodosCompleted[todo.userId] || 0) + 1;
-      }
+      if (!todo.completed) // Каких заданий выполненых, невыполненных или всех в сумме, Я сделал невыполненных (23.02.2025)
+        userIdTodos[todo.userId] = (userIdTodos[todo.userId] || 0) + 1;
     });
 
     return users.map((user) => ({
       ...user,
-      todos: userIdTodosCompleted[user.id] || 0,
+      todos: userIdTodos[user.id] || 0,
     }));
   }, [users, todos]);
 
